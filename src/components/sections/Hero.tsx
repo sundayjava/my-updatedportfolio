@@ -97,7 +97,7 @@ export default function Hero() {
                 {/* leader line fills whatever space is left */}
                 <span
                   aria-hidden
-                  className="h-px flex-1 bg-gradient-to-r from-white/40 via-white/25 to-white/15"
+                  className="h-px flex-1 bg-linear-to-r from-white/40 via-white/25 to-white/15"
                 />
 
                 {/* the blinking node */}
@@ -112,7 +112,7 @@ export default function Hero() {
               </div>
 
               {/* hangs under the label, clear of the bullet */}
-              <p className="ml-[1.125rem] mt-2 max-w-xs text-sm leading-relaxed text-on-ink-dim">
+              <p className="ml-4.5 mt-2 max-w-xs text-sm leading-relaxed text-on-ink-dim">
                 High-performance infrastructure for web and mobile.
               </p>
             </div>
@@ -124,7 +124,7 @@ export default function Hero() {
               card.kind === "metric" ? (
                 <div
                   key={card.label}
-                  className={`rounded-2xl border border-white/15 bg-white/[0.09] p-6 backdrop-blur-xl ${card.layout}`}
+                  className={`rounded-2xl border border-white/15 bg-white/9 p-6 backdrop-blur-xl ${card.layout}`}
                 >
                   {/* Stacked, not side-by-side — this is the narrowest card in
                       the stack and a horizontal split wraps badly in it. */}
@@ -139,7 +139,7 @@ export default function Hero() {
               ) : (
                 <div
                   key={card.title}
-                  className={`rounded-2xl border border-white/15 bg-white/[0.09] p-6 backdrop-blur-xl transition-colors hover:border-white/20 ${card.layout}`}
+                  className={`rounded-2xl border border-white/15 bg-white/9 p-6 backdrop-blur-xl transition-colors hover:border-white/20 ${card.layout}`}
                 >
                   <div className="flex items-start justify-between gap-5">
                     <div>
