@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+/* ───────────────────────────────────────────────────────────
+   Design tokens. Re-skinning the site = changing values here.
+   Section components reference tokens only, never raw hex.
+   ─────────────────────────────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --paper: #f7f6f3;        /* page background */
+  --paper-raised: #ffffff; /* cards */
+  --ink: #0b0c0e;          /* dark bands + primary text */
+  --space: #07080c;        /* hero sky base — hero fades into it, ProofStrip sits on it */
+  --ink-raised: #15171a;   /* cards on dark */
+
+  /* Text */
+  --text-primary: #0b0c0e;
+  --text-secondary: #55585e;
+  --text-muted: #8a8d94;
+  --text-on-ink: #f7f6f3;
+  --text-on-ink-dim: #9ca0a8;
+
+  /* Brand accent #ff2d55.
+     The fill is the brand colour, unchanged, everywhere.
+     Small text on paper uses a darkened step (#c8123c, 5.39:1) because
+     #ff2d55 on paper measures only 3.37:1. On dark surfaces the brand colour
+     passes (5.22:1) and is used directly.
+
+     --on-accent is white by explicit brand decision. White on #ff2d55 measures
+     3.65:1 — above the 3:1 bar for large text, below the 4.5:1 bar for small
+     text. Raising button labels to >=18.66px bold would bring them into AA. */
+  --brand: #ff2d55;
+  --accent: #c8123c;
+  --accent-hover: #ad0d32;
+  --accent-on-ink: #ff2d55;
+  --accent-fill: #ff2d55;
+  --accent-fill-hover: #ff4d6e;
+  --accent-wash: #ff2d551f;
+  --on-accent: #ffffff;
+
+
+  /* Lines */
+  --hairline: #0b0c0e14;
+  --hairline-strong: #0b0c0e26;
+  --hairline-on-ink: #ffffff1f;
+
+  /* Rhythm */
+  --section-y: 7rem;
+  --gutter: 1rem;
+  --measure: 65ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e1013;
+    --paper-raised: #16191d;
+    --ink: #000000;
+    --ink-raised: #121519;
+
+    --text-primary: #f7f6f3;
+    --text-secondary: #a8acb3;
+    --text-muted: #70747b;
+
+    --accent: #ff2d55;
+    --accent-hover: #ff4d6e;
+    --accent-fill: #ff2d55;
+    --accent-fill-hover: #ff4d6e;
+    --accent-wash: #ff2d551f;
+    --on-accent: #ffffff;
+
+    --hairline: #ffffff14;
+    --hairline-strong: #ffffff26;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #0e1013;
+  --paper-raised: #16191d;
+  --ink: #000000;
+  --ink-raised: #121519;
+  --text-primary: #f7f6f3;
+  --text-secondary: #a8acb3;
+  --text-muted: #70747b;
+  --accent: #ff2d55;
+  --accent-hover: #ff4d6e;
+  --accent-fill: #ff2d55;
+  --accent-fill-hover: #ff4d6e;
+  --accent-wash: #ff2d551f;
+  --on-accent: #ffffff;
+  --hairline: #ffffff14;
+  --hairline-strong: #ffffff26;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-ink: var(--ink);
+  --color-space: var(--space);
+  --color-ink-raised: var(--ink-raised);
+
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-muted: var(--text-muted);
+  --color-on-ink: var(--text-on-ink);
+  --color-on-ink-dim: var(--text-on-ink-dim);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-on-ink: var(--accent-on-ink);
+  --color-accent-wash: var(--accent-wash);
+  --color-on-accent: var(--on-accent);
+  --color-brand: var(--brand);
+  --color-accent-fill: var(--accent-fill);
+  --color-accent-fill-hover: var(--accent-fill-hover);
+
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-hairline-on-ink: var(--hairline-on-ink);
+
+  --font-display: var(--font-inter);
+  --font-sans: var(--font-inter);
+}
+
+@media (min-width: 1024px) {
+  :root { --section-y: 9.5rem; }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Sticky header is 4rem tall — keep anchored sections clear of it */
+:target,
+section[id],
+div[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+body {
+  background: var(--paper);
+  color: var(--text-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Large sans display type needs tighter tracking and more weight than body */
+.display {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.03;
+  font-feature-settings: "ss01", "cv05";
+}
+
+/* Metrics align in columns only with tabular figures */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Small uppercase section eyebrow */
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Theme toggle icon ──────────────────────────────────────
+   Chosen in CSS so the button can stay stateless and SSR-safe. */
+.icon-dark { display: none; }
+.icon-light { display: inline; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .icon-dark { display: inline; }
+  :root:not([data-theme="light"]) .icon-light { display: none; }
+}
+
+:root[data-theme="dark"] .icon-dark { display: inline; }
+:root[data-theme="dark"] .icon-light { display: none; }
+:root[data-theme="light"] .icon-dark { display: none; }
+:root[data-theme="light"] .icon-light { display: inline; }
