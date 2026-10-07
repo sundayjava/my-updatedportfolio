@@ -1,74 +1,91 @@
-import { motion } from 'framer-motion';
+import Link from "next/link";
+import { site } from "@/lib/site";
+import { Container } from "./ui";
 
-const Footer = () => {
-  const socialLinks = [
-    { name: 'Github', url: 'https://github.com/sundayjava' },
-    { name: 'Linkedin', url: 'https://www.linkedin.com/in/sunday-david-951369266/' },
-    { name: 'Instagram', url: 'https://www.instagram.com/sunday_david_001?igsh=MWczMXF3cWQ5a2lyZg==' },
-    { name: 'Tiktok', url: 'https://www.tiktok.com/@sundxtech?_r=1&_t=ZS-92nf0AjePFw' },
-  ];
+const columns = [
+  {
+    heading: "Platform",
+    links: [
+      { label: "APIs", href: "/#platform" },
+      { label: "Data products", href: "/#data" },
+      { label: "SaaS & developer tools", href: "/#platform" },
+      { label: "Software licensing", href: "/#platform" },
+    ],
+  },
+  {
+    heading: "Engineering",
+    links: [
+      { label: "Custom software", href: "/#engineering" },
+      { label: "Systems integration", href: "/#engineering" },
+      { label: "Business automation", href: "/#engineering" },
+      { label: "Data licensing", href: "/#data" },
+    ],
+  },
+  {
+    heading: "Commerce & trade",
+    links: [
+      { label: "Digital marketplace", href: "/#platform" },
+      { label: "Demand-driven sourcing", href: "/#sourcing" },
+      { label: "Import & export", href: "/#sourcing" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { label: "Work", href: "/work" },
+      { label: "About", href: "/about" },
+      { label: "Trust & security", href: "/#trust" },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
+];
 
+export default function Footer() {
   return (
-    <footer className="relative py-12 bg-white border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-          {/* Logo */}
-          {/* <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <svg 
-              className="w-12 h-12" 
-              viewBox="0 0 50 50" 
-              fill="none"
+    <footer className="border-t border-hairline-on-ink bg-ink text-on-ink">
+      <Container className="py-16 lg:py-20">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_3fr]">
+          <div className="max-w-xs">
+            <p className="display text-2xl">{site.name}</p>
+            <p className="mt-3 text-sm leading-relaxed text-on-ink-dim">
+              {site.tagline}
+            </p>
+            <a
+              href={`mailto:${site.email}`}
+              className="mt-6 inline-block text-sm text-accent-on-ink hover:underline"
             >
-              <path 
-                d="M15 15 L35 35 M35 15 L15 35" 
-                stroke="currentColor" 
-                strokeWidth="3" 
-                strokeLinecap="round"
-                className="text-black"
-              />
-            </svg>
-          </motion.div> */}
+              {site.email}
+            </a>
+          </div>
 
-          {/* Social Links */}
-          <motion.div 
-            className="flex flex-wrap items-center gap-6 md:gap-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            {socialLinks.map((link, _index) => (
-              <motion.a
-                key={link.name}
-                href={link.url}
-                className="text-black hover:text-[#C29A3A] transition-colors text-sm md:text-base"
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
-              >
-                {link.name}
-              </motion.a>
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {columns.map((col) => (
+              <div key={col.heading}>
+                <p className="eyebrow text-on-ink-dim">{col.heading}</p>
+                <ul className="mt-4 space-y-3">
+                  {col.links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-on-ink-dim transition-colors hover:text-on-ink"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </motion.div>
-
-          {/* Copyright */}
-          <motion.div
-            className="text-gray-600 text-sm md:text-base"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            Personal portfolio©2024
-          </motion.div>
+          </div>
         </div>
-      </div>
+
+        <div className="mt-16 flex flex-col gap-3 border-t border-hairline-on-ink pt-8 text-xs text-on-ink-dim sm:flex-row sm:justify-between">
+          <p>
+            © {new Date().getFullYear()} {site.legalName}. All rights reserved.
+          </p>
+          <p>Technology · Data · Digital commerce · Demand-driven trade</p>
+        </div>
+      </Container>
     </footer>
   );
-};
-
-export default Footer;
+}
